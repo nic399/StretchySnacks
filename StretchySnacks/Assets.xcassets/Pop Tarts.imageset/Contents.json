@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "pop_tarts.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ramen.png",
       "scale" : "2x"
     },
     {

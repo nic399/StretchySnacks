@@ -41,12 +41,39 @@
                                     <constraint firstAttribute="height" constant="64" id="VJL-pB-sOo"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WPw-33-nnc">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="foodCell" textLabel="ubY-cC-ISs" style="IBUITableViewCellStyleDefault" id="r9e-2j-Lbr">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r9e-2j-Lbr" id="Mht-Kc-bcO">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ubY-cC-ISs">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="WPw-33-nnc" secondAttribute="bottom" id="2YC-ze-sLC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="UW3-pa-Aav" secondAttribute="trailing" id="V3Y-4H-YAV"/>
+                            <constraint firstItem="WPw-33-nnc" firstAttribute="top" secondItem="UW3-pa-Aav" secondAttribute="bottom" id="WrJ-q3-bRO"/>
                             <constraint firstItem="UW3-pa-Aav" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Xqa-G8-bcY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WPw-33-nnc" secondAttribute="trailing" id="a0i-xF-n3b"/>
                             <constraint firstItem="UW3-pa-Aav" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jjh-c6-d4b"/>
+                            <constraint firstItem="WPw-33-nnc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nh6-6g-xss"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -54,6 +81,7 @@
                         <outlet property="navBarHeightConstraint" destination="VJL-pB-sOo" id="wG5-DJ-41F"/>
                         <outlet property="navBarView" destination="UW3-pa-Aav" id="fKe-ne-BcP"/>
                         <outlet property="plusIconButton" destination="hI6-NO-baL" id="Rda-sU-uRm"/>
+                        <outlet property="tableView" destination="WPw-33-nnc" id="afV-E0-vuD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
