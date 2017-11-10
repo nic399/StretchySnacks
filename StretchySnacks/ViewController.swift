@@ -23,8 +23,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var closed:NSLayoutConstraint!
     var opened:NSLayoutConstraint!
     
-    
-    
     // MARK: View Controller Lifecycle
     
     override func viewDidLoad() {
@@ -32,9 +30,65 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
+        setUpStackview()
+        snackLabel.text = "SNACKS"
+        navBarView.addSubview(snackLabel)
+        snackLabel.translatesAutoresizingMaskIntoConstraints = false
+        snackLabel.centerXAnchor.constraint(equalTo: navBarView.centerXAnchor).isActive = true
+        closed = snackLabel.centerYAnchor.constraint(equalTo: navBarView.centerYAnchor)
+        closed.isActive = true
+        opened = snackLabel.centerYAnchor.constraint(equalTo: navBarView.centerYAnchor, constant: -40.0)
+    }
+    
+    // MARK: Custom Nav Bar
+    
+    @IBAction func plusIconPressed(_ sender: Any) {
+        toggleNavigationBar()
+    }
+    
+    func toggleNavigationBar() {
+        if (self.navBarHeightConstraint.constant == 64.0) {
+            self.navBarHeightConstraint.constant = 200.0
+            UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.35, initialSpringVelocity: 4.5, options: [], animations: {
+                self.plusIconButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi/4)
+                self.optionsView.isHidden = false
+                self.closed.isActive = false
+                self.opened.isActive = true
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+        else if (self.navBarHeightConstraint.constant == 200.00) {
+            self.navBarHeightConstraint.constant = 64.0
+            UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.45, initialSpringVelocity: 4.5, options: [], animations: {
+                self.plusIconButton.transform = CGAffineTransform(rotationAngle: 0.0)
+                self.optionsView.isHidden = true
+                self.opened.isActive = false
+                self.closed.isActive = true
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+        else {
+            print("Error: Unexpected navBar height")
+        }
+    }
+    
+    // MARK: Helper methods
+    
+    func setUpStackview() {
         optionsView = UIStackView()
+        populateStackview()
         optionsView.alignment = UIStackViewAlignment.center
         optionsView.distribution = UIStackViewDistribution.fillEqually
+        navBarView.addSubview(optionsView)
+        optionsView.translatesAutoresizingMaskIntoConstraints = false
+        optionsView.leftAnchor.constraint(equalTo: navBarView.leftAnchor, constant: 10.0).isActive = true
+        optionsView.rightAnchor.constraint(equalTo: navBarView.rightAnchor, constant: -10.0).isActive = true
+        optionsView.bottomAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: -10.0).isActive = true
+        optionsView.heightAnchor.constraint(equalToConstant: 90.0).isActive = true
+        optionsView.isHidden = true
+    }
+    
+    func populateStackview() {
         let foodOptionWidth = (self.view.bounds.size.width - 20.0 - 4.0 * 3.0) / 5.0
         let foodOptionHeight:CGFloat = 90.0
         let foodOptionRect = CGRect(x: 0.0, y: 0.0, width: foodOptionWidth, height: foodOptionHeight)
@@ -48,65 +102,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             foodImageView.isUserInteractionEnabled = true
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addFoodItem(_:)))
             foodImageView.addGestureRecognizer(tapGestureRecognizer)
-            
             optionsView.addArrangedSubview(foodImageView)
-        }
-        navBarView.addSubview(optionsView)
-        optionsView.translatesAutoresizingMaskIntoConstraints = false
-        optionsView.leftAnchor.constraint(equalTo: navBarView.leftAnchor, constant: 10.0).isActive = true
-        optionsView.rightAnchor.constraint(equalTo: navBarView.rightAnchor, constant: -10.0).isActive = true
-        optionsView.bottomAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: -10.0).isActive = true
-        optionsView.heightAnchor.constraint(equalToConstant: 90.0).isActive = true
-        optionsView.isHidden = true
-        snackLabel.text = "SNACKS"
-        navBarView.addSubview(snackLabel)
-        snackLabel.translatesAutoresizingMaskIntoConstraints = false
-        snackLabel.centerXAnchor.constraint(equalTo: navBarView.centerXAnchor).isActive = true
-        closed = snackLabel.centerYAnchor.constraint(equalTo: navBarView.centerYAnchor)
-        closed.isActive = true
-        //closed.identifier = "CenterYNoOffest"
-        opened = snackLabel.centerYAnchor.constraint(equalTo: navBarView.centerYAnchor, constant: -40.0)
-        //opened.identifier = "CenterYOffset"
-        
-        
-        
-        
-    }
-    
-    // MARK: Custom Nav Bar
-    
-    @IBAction func plusIconPressed(_ sender: Any) {
-        print("Plus Icon Pressed - Current navBar height: \(self.navBarHeightConstraint.constant)")
-        toggleNavigationBar()
-    }
-    
-    func toggleNavigationBar() {
-        if (self.navBarHeightConstraint.constant == 64.0) {
-            self.navBarHeightConstraint.constant = 200.0
-            
-            UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.35, initialSpringVelocity: 4.5, options: [], animations: {
-                self.plusIconButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi/4)
-                self.optionsView.isHidden = false
-                self.closed.isActive = false
-                self.opened.isActive = true
-                self.view.layoutIfNeeded()
-                
-            }, completion: nil)
-        }
-        else if (self.navBarHeightConstraint.constant == 200.00) {
-            self.navBarHeightConstraint.constant = 64.0
-            UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.45, initialSpringVelocity: 4.5, options: [], animations: {
-                self.plusIconButton.transform = CGAffineTransform(rotationAngle: 0.0)
-                self.optionsView.isHidden = true
-                self.closed.isActive = true
-                self.opened.isActive = false
-                self.view.layoutIfNeeded()
-                
-            }, completion: nil)
-            
-        }
-        else {
-            print("Error: Unexpected navBar height")
         }
     }
     
@@ -115,8 +111,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @objc func addFoodItem(_ sender:UITapGestureRecognizer) {
         let index = sender.view!.tag
         datasourceArr.insert(foodOptionsArr[index], at: 0)
-        print("You tapped \(foodOptionsArr[index])")
-        print("datasource is now \(datasourceArr)")
         self.tableView.reloadData()
     }
     
@@ -136,18 +130,4 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return 1
     }
     
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
